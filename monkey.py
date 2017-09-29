@@ -1,36 +1,34 @@
 import arcade
-import arcade.key
-
+from models import World,Monkey
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 
-class MonkeyGameWindow(arcade.Window):
+class MonkeyWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
-        
-        arcade.set_background_color(arcade.color.LIME)
-        
-        #self.monkey_sprite = ModelSprite('images/monkey.png',model=self.world.monkey)
-        #self.banana_sprite = ModelSprite('images/banana.png',model=self.world.banana)
-        #self.bomb_sprite = ModelSprite('images/bomb.png',model=self.world.bomb)
-    
+        self.background = arcade.load_texture("images/bgzoo.jpg")
+        self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.monkey_sprite = arcade.Sprite("images/monkey.png", 1)
+        self.monkey_sprite.center_x = SCREEN_WIDTH // 2
+        self.monkey_sprite.center_y = SCREEN_HEIGHT - 40
+
+    def update(self, delta):
+        self.world.update(delta)
+ 
     def on_draw(self):
         arcade.start_render()
-        #self.monkey_sprite.draw()
-        #self.banana_sprite.draw()
-        #self.bomb_sprite.draw()
-
-        #arcade.draw_text(str(self.world.score),
-        #                 self.width - 30, self.height - 30,
-        #                 arcade.color.WHITE, 20)
-
-    #def update(self, delta):
-    #    self.world.update(delta)
+        arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                      SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
+        self.monkey_sprite.draw()
+    
+class MonkeySprite:
+    def __init__(self, monkey):
+        self.monkey = monkey
         
-    #def on_key_press(self, key, key_modifiers):
-    #    self.world.on_key_press(key, key_modifiers)
-
-if __name__ == '__main__':
-    window = MonkeyGameWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
+def main():
+    window = MonkeyWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.set_window(window)
     arcade.run()
+ 
+if __name__ == '__main__':
+    main()
