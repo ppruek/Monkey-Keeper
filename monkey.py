@@ -8,10 +8,15 @@ class MonkeyWindow(arcade.Window):
         super().__init__(width, height)
         self.background = arcade.load_texture("images/bgzoo.jpg")
         self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
+        #monkey
         self.monkey_sprite = arcade.Sprite("images/monkey.png", 0.5)
         self.monkey_sprite.center_x = SCREEN_WIDTH // 2
         self.monkey_sprite.center_y = SCREEN_HEIGHT - 70
-
+        #basket
+        self.basket_sprite = arcade.Sprite("images/basket.png", 0.75)
+        self.basket_sprite.center_x = SCREEN_WIDTH // 2
+        self.basket_sprite.center_y = 50
+        
     def update(self, delta):
         self.world.update(delta)
  
@@ -20,7 +25,8 @@ class MonkeyWindow(arcade.Window):
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.monkey_sprite.draw()
-    
+        self.basket_sprite.draw()
+
 class MonkeySprite:
     def __init__(self, monkey):
         self.monkey = monkey
