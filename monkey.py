@@ -11,11 +11,11 @@ class MonkeyWindow(arcade.Window):
         self.Monkey = Monkey("images/monkey.png", 0.5)
         self.Basket = Basket("images/basket.png",0.75)
 
-    #def on_key_release(self, key, key_modifiers):
-    #    self.Basket.on_key_release(key, key_modifiers)
+    def on_key_release(self, key, modifiers):
+        self.Basket.on_key_release(key, modifiers)
     
-    def on_key_press(self, key, key_modifiers):
-        self.Basket.on_key_press(key, key_modifiers)
+    def on_key_press(self, key, modifiers):
+        self.Basket.on_key_press(key, modifiers)
 
     def on_draw(self):
         arcade.start_render()

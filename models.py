@@ -27,16 +27,16 @@ class Basket(arcade.Sprite):
         self.center_y = 50
         self.change_x = 0
 
-    def on_key_press(self, key, key_modifiers):
+    def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
-            self.change_x = 5
-        if key == arcade.key.RIGHT:
             self.change_x = -5
-    '''
-    def on_key_release(self, key, key_modifiers):
+        if key == arcade.key.RIGHT:
+            self.change_x = 5
+    
+    def on_key_release(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.change_x = 0
-    '''
+    
     def update(self):
         super().draw()
         self.center_x += self.change_x           
