@@ -1,36 +1,24 @@
 import arcade
-from models import World,Monkey
+from models import Monkey
+
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 700
 
 class MonkeyWindow(arcade.Window):
     def __init__(self, width, height):
-        super().__init__(width, height)
-        self.background = arcade.load_texture("images/bgzoo.jpg")
-        self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
-        #monkey
-        self.monkey_sprite = arcade.Sprite("images/monkey.png", 0.5)
-        self.monkey_sprite.center_x = SCREEN_WIDTH // 2
-        self.monkey_sprite.center_y = SCREEN_HEIGHT - 70
-        #basket
-        self.basket_sprite = arcade.Sprite("images/basket.png", 0.75)
-        self.basket_sprite.center_x = SCREEN_WIDTH // 2
-        self.basket_sprite.center_y = 50
+        super().__init__(width, height, "Monkey Keeper")
+        self.background = arcade.load_texture("images/bgzoo.jpg")  
+        self.Monkey = Monkey("images/monkey.png", 0.5)
         
-    def update(self, delta):
-        self.world.update(delta)
- 
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
-        self.monkey_sprite.draw()
-        self.basket_sprite.draw()
+        self.Monkey.draw()
 
-class MonkeySprite:
-    def __init__(self, monkey):
-        self.monkey = monkey
-        
+    def update(self, delta):
+        self.Monkey.update()
+
 def main():
     window = MonkeyWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.set_window(window)
