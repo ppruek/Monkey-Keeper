@@ -12,7 +12,7 @@ class Monkey(arcade.Sprite):
         self.speed = 3
         
     def movement(self):
-        if self.center_x > 700 or self.center_x < 0:
+        if self.center_x > 660 or self.center_x < 20:
             self.speed *= -1
         self.center_x += self.speed
         
@@ -37,6 +37,13 @@ class Basket(arcade.Sprite):
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.change_x = 0
     
+    def is_end(self):
+        if self.center_x > 680 :
+            self.center_x = 680
+        elif self.center_x < 20 :
+            self.center_x = 20
+
     def update(self):
         super().draw()
+        self.is_end()
         self.center_x += self.change_x           
