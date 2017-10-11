@@ -1,5 +1,5 @@
 import arcade
-from models import Monkey,Basket
+from models import Monkey,Basket,Banana
 
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 700
@@ -10,6 +10,7 @@ class MonkeyWindow(arcade.Window):
         self.background = arcade.load_texture("images/bgzoo.jpg")  
         self.Monkey = Monkey("images/monkey.png", 0.5)
         self.Basket = Basket("images/basket.png",0.75)
+        self.Banana = Banana("images/bananas.png",0.5, self.Monkey)
 
     def on_key_release(self, key, modifiers):
         self.Basket.on_key_release(key, modifiers)
@@ -23,10 +24,12 @@ class MonkeyWindow(arcade.Window):
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.Monkey.draw()
         self.Basket.draw()
+        self.Banana.draw()
 
     def update(self, delta):
         self.Monkey.update()
         self.Basket.update()
+        self.Banana.update()
 
 def main():
     window = MonkeyWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
