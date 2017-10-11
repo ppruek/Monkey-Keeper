@@ -49,18 +49,18 @@ class Basket(arcade.Sprite):
         self.center_x += self.change_x           
 
 class Banana(arcade.Sprite):
-    def __init__(self, link, size, Monkey):
+    def __init__(self, link, size, Monkey, Basket):
         super().__init__(link,size)
         self.Monkey = Monkey
+        self.Basket = Basket
         self.center_x = Monkey.center_x
         self.center_y = Monkey.center_y
     
     def movement(self):
-        self.center_y -= 3
+        self.center_y -= 1
     
     def update(self):
         self.movement()
         super().draw()
 
     #def is_hit(self):
-
