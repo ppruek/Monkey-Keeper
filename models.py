@@ -39,7 +39,7 @@ class Monkey(arcade.Sprite):
             self.speed *= -1
         self.center_x += self.speed
 
-    def create_banana(self):
+    def create(self):
         time = randint(0,1000000) 
         if time > 975000:
             self.Banana.append(Banana(self.center_x,self.center_y,3)) 
@@ -48,10 +48,14 @@ class Monkey(arcade.Sprite):
 
     def update(self):
         self.movement()     
-        self.create_banana()
+        self.create()
         for Banana in self.Banana:
+            if Banana.center_y < 0:
+                self.Banana.remove(Banana)
             Banana.update()
         for Bomb in self.Bomb:
+            if Bomb.center_y < 0:
+                self.Bomb.remove(Bomb)
             Bomb.update()
       
     def on_draw(self):
