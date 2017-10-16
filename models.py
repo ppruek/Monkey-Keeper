@@ -15,6 +15,16 @@ class Banana(arcade.Sprite):
     def update(self):
         self.center_y -= self.speed
 
+class Bomb(arcade.Sprite):
+    def __init__(self, x, y, speed):
+        super().__init__("images/bomb.png",1)
+        self.center_x = x
+        self.center_y = y
+        self.speed = speed
+
+    def update(self):
+        self.center_y -= self.speed        
+
 class Monkey(arcade.Sprite):
     def __init__(self, link,size):
         super().__init__(link,size)
@@ -22,6 +32,7 @@ class Monkey(arcade.Sprite):
         self.center_y = SCREEN_HEIGHT - 70
         self.speed = 3
         self.Banana = []
+        self.Bomb = []
 
     def movement(self):
         if self.center_x > 660 or self.center_x < 20:
@@ -30,19 +41,25 @@ class Monkey(arcade.Sprite):
 
     def create_banana(self):
         time = randint(0,1000000) 
-        if time > 970000:
+        if time > 975000:
             self.Banana.append(Banana(self.center_x,self.center_y,3)) 
+        if time > 990000:
+            self.Bomb.append(Bomb(self.center_x,self.center_y,2))
 
     def update(self):
         self.movement()     
         self.create_banana()
         for Banana in self.Banana:
             Banana.update()
+        for Bomb in self.Bomb:
+            Bomb.update()
       
     def on_draw(self):
         super().draw()
         for Banana in self.Banana:
             Banana.draw()
+        for Bomb in self.Bomb:
+            Bomb.draw()
         
 
 class Basket(arcade.Sprite):

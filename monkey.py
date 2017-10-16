@@ -23,12 +23,10 @@ class MonkeyWindow(arcade.Window):
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.Monkey.on_draw()
         self.Basket.draw()
-    #    self.Banana.draw()
 
     def update(self, delta):
         self.Monkey.update()
         self.Basket.update()
-    #    self.Banana.update()
 
 def main():
     window = MonkeyWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
