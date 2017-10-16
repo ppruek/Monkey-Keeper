@@ -1,5 +1,6 @@
 import arcade
 import arcade.key
+import sys
 from random import randint
 
 SCREEN_WIDTH = 700
@@ -25,46 +26,6 @@ class Bomb(arcade.Sprite):
     def update(self):
         self.center_y -= self.speed        
 
-class Monkey(arcade.Sprite):
-    def __init__(self, link,size):
-        super().__init__(link,size)
-        self.center_x = SCREEN_WIDTH // 2
-        self.center_y = SCREEN_HEIGHT - 70
-        self.speed = 3
-        self.Banana = []
-        self.Bomb = []
-
-    def movement(self):
-        if self.center_x > 660 or self.center_x < 20:
-            self.speed *= -1
-        self.center_x += self.speed
-
-    def create(self):
-        time = randint(0,1000000) 
-        if time > 975000:
-            self.Banana.append(Banana(self.center_x,self.center_y,3)) 
-        if time > 990000:
-            self.Bomb.append(Bomb(self.center_x,self.center_y,2))
-
-    def update(self):
-        self.movement()     
-        self.create()
-        for Banana in self.Banana:
-            if Banana.center_y < 0:
-                self.Banana.remove(Banana)
-            Banana.update()
-        for Bomb in self.Bomb:
-            if Bomb.center_y < 0:
-                self.Bomb.remove(Bomb)
-            Bomb.update()
-      
-    def on_draw(self):
-        super().draw()
-        for Banana in self.Banana:
-            Banana.draw()
-        for Bomb in self.Bomb:
-            Bomb.draw()
-        
 class Basket(arcade.Sprite):
     def __init__(self, link, size):
         super().__init__(link, size)
@@ -101,3 +62,49 @@ class Basket(arcade.Sprite):
         self.is_end()
         self.center_x += self.change_x           
 
+class Monkey(arcade.Sprite):
+    def __init__(self, link,size, Basket):
+        super().__init__(link,size)
+        self.center_x = SCREEN_WIDTH // 2
+        self.center_y = SCREEN_HEIGHT - 70
+        self.Basket = Basket
+        self.speed = 3
+        self.Banana = []
+        self.Bomb = []
+        
+    def movement(self):
+        if self.center_x > 660 or self.center_x < 20:
+            self.speed *= -1
+        self.center_x += self.speed
+
+    def create(self):
+        time = randint(0,1000000) 
+        if time > 975000:
+            self.Banana.append(Banana(self.center_x,self.center_y,3)) 
+        if time > 990000:
+            self.Bomb.append(Bomb(self.center_x,self.center_y,2))
+
+    def update(self):
+        self.movement()     
+        self.create()
+        for Banana in self.Banana:
+            if arcade.check_for_collision(Banana,self.Basket):
+                self.Banana.remove(Banana)
+            if Banana.center_y < 0:
+                self.Banana.remove(Banana)
+            Banana.update()
+        for Bomb in self.Bomb:
+            if arcade.check_for_collision(Bomb,self.Basket):
+                self.Bomb.remove(Bomb)
+                sys.exit()
+            if Bomb.center_y < 0:
+                self.Bomb.remove(Bomb)
+            Bomb.update()
+      
+    def on_draw(self):
+        super().draw()
+        for Banana in self.Banana:
+            Banana.draw()
+        for Bomb in self.Bomb:
+            Bomb.draw()
+        

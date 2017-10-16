@@ -8,8 +8,8 @@ class MonkeyWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height, "Monkey Keeper")
         self.background = arcade.load_texture("images/bgzoo.jpg")  
-        self.Monkey = Monkey("images/monkey.png", 0.5)
         self.Basket = Basket("images/basket.png",0.75)
+        self.Monkey = Monkey("images/monkey.png", 0.5, self.Basket)
         
     def on_key_release(self, key, modifiers):
         self.Basket.on_key_release(key, modifiers)
