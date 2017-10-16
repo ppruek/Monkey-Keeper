@@ -61,22 +61,29 @@ class Monkey(arcade.Sprite):
         for Bomb in self.Bomb:
             Bomb.draw()
         
-
 class Basket(arcade.Sprite):
     def __init__(self, link, size):
         super().__init__(link, size)
         self.center_x = SCREEN_WIDTH // 2
         self.center_y = 50
         self.change_x = 0
+        self.direc = True
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT:
             self.change_x = -5
-        elif key == arcade.key.RIGHT:
+            self.direc = False
+        if key == arcade.key.RIGHT:
             self.change_x = 5
+            self.direc = True
+        if key == arcade.key.SPACE:
+            if self.direc :
+                self.change_x = 8
+            else :
+                self.change_x = -8
     
     def on_key_release(self, key, modifiers):
-        if key == arcade.key.LEFT or key == arcade.key.RIGHT:
+        if key == arcade.key.LEFT or key == arcade.key.RIGHT or key == arcade.key.SPACE:
             self.change_x = 0
     
     def is_end(self):
