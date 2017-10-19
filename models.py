@@ -79,7 +79,10 @@ class Monkey(arcade.Sprite):
         self.center_x += self.speed
 
     def create(self):
-        time = randint(0,10) 
+        if self.score > 100:
+            time = randint(5,10)
+        else : 
+            time = randint(0,10)
         if time > 3:
             if self.score > 100:
                 self.Banana.append(Banana(self.center_x,self.center_y,randint(3,10)))     
@@ -93,7 +96,6 @@ class Monkey(arcade.Sprite):
 
     def update(self):
         if self.score < 0 :
-
             return
         else :
             self.throw += 1
@@ -115,9 +117,9 @@ class Monkey(arcade.Sprite):
                 if arcade.check_for_collision(Bomb,self.Basket):
                     self.Bomb.remove(Bomb)
                     if self.score > 100 :
-                        self.score -= randint(44,111)
+                        self.score -= randint(35,115)
                     else :
-                        self.score -= randint(15,25)
+                        self.score -= randint(15,40)
                 if Bomb.center_y < 0:
                     self.Bomb.remove(Bomb)
                 Bomb.update()
