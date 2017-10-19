@@ -10,7 +10,7 @@ class MonkeyWindow(arcade.Window):
         self.background = arcade.load_texture("images/bgzoo.jpg")  
         self.Basket = Basket("images/basket.png",0.75)
         self.Monkey = Monkey("images/monkey.png", 0.5, self.Basket)
-        
+        self.score_text = arcade.create_text("Score : "+str(self.Monkey.score), arcade.color.BLACK, 30)
     def on_key_release(self, key, modifiers):
         self.Basket.on_key_release(key, modifiers)
     
@@ -23,10 +23,12 @@ class MonkeyWindow(arcade.Window):
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.Monkey.on_draw()
         self.Basket.draw()
+        arcade.render_text(self.score_text, 285, 300)
 
     def update(self, delta):
         self.Monkey.update()
         self.Basket.update()
+        self.score_text = arcade.create_text("Score : "+str(self.Monkey.score), arcade.color.BLACK, 30)
 
 def main():
     window = MonkeyWindow(SCREEN_WIDTH, SCREEN_HEIGHT)

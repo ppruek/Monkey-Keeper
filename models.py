@@ -1,6 +1,5 @@
 import arcade
 import arcade.key
-import sys
 from random import randint
 
 SCREEN_WIDTH = 700
@@ -71,6 +70,7 @@ class Monkey(arcade.Sprite):
         self.speed = 3
         self.Banana = []
         self.Bomb = []
+        self.score = 0
         
     def movement(self):
         if self.center_x > 660 or self.center_x < 20:
@@ -90,13 +90,14 @@ class Monkey(arcade.Sprite):
         for Banana in self.Banana:
             if arcade.check_for_collision(Banana,self.Basket):
                 self.Banana.remove(Banana)
+                self.score += 10
             if Banana.center_y < 0:
                 self.Banana.remove(Banana)
             Banana.update()
         for Bomb in self.Bomb:
             if arcade.check_for_collision(Bomb,self.Basket):
                 self.Bomb.remove(Bomb)
-                sys.exit()
+                self.score -= 15
             if Bomb.center_y < 0:
                 self.Bomb.remove(Bomb)
             Bomb.update()
@@ -107,4 +108,3 @@ class Monkey(arcade.Sprite):
             Banana.draw()
         for Bomb in self.Bomb:
             Bomb.draw()
-        
