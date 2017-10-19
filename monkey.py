@@ -12,12 +12,17 @@ class MonkeyWindow(arcade.Window):
         self.Monkey = Monkey("images/monkey.png", 0.5, self.Basket)
         self.score_text = arcade.create_text("Score : "+str(self.Monkey.score), arcade.color.BLACK, 30)
         self.game_over = arcade.create_text("GAME OVER", arcade.color.BLACK, 50)
-    
+        self.restart = arcade.create_text("Press R to restart", arcade.color.BLACK, 30)
+
     def on_key_release(self, key, modifiers):
         self.Basket.on_key_release(key, modifiers)
     
     def on_key_press(self, key, modifiers):
         self.Basket.on_key_press(key, modifiers)
+        if key == arcade.key.R:
+            if self.Monkey.score < 0:
+                self.Basket = Basket("images/basket.png",0.75)
+                self.Monkey = Monkey("images/monkey.png", 0.5, self.Basket)
 
     def on_draw(self):
         arcade.start_render()
@@ -27,6 +32,7 @@ class MonkeyWindow(arcade.Window):
         self.Basket.draw()
         if self.Monkey.score < 0 :
             arcade.render_text(self.game_over, 200, 300)
+            arcade.render_text(self.restart, 222, 250)
         else :
             arcade.render_text(self.score_text, 285, 300)
 
@@ -35,6 +41,7 @@ class MonkeyWindow(arcade.Window):
         self.Basket.update()
         if self.Monkey.score < 0 :
             self.game_over = arcade.create_text("GAME OVER", arcade.color.BLACK, 50)
+            self.restart = arcade.create_text("Press R to restart", arcade.color.BLACK, 30)
         else :
             self.score_text = arcade.create_text("Score : "+str(self.Monkey.score), arcade.color.BLACK, 30)
 
