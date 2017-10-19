@@ -17,7 +17,7 @@ class Banana(arcade.Sprite):
 
 class Bomb(arcade.Sprite):
     def __init__(self, x, y, speed):
-        super().__init__("images/bomb.png",1)
+        super().__init__("images/bomb.png",0.75)
         self.center_x = x
         self.center_y = y
         self.speed = speed
@@ -94,7 +94,7 @@ class Monkey(arcade.Sprite):
     def update(self):
         self.throw += 1
         self.movement()
-        if self.throw % 60 == 0:     
+        if self.throw == 60:     
             self.create()
             self.throw = 0
         for Banana in self.Banana:
