@@ -84,12 +84,12 @@ class Monkey(arcade.Sprite):
             if self.score > 100:
                 self.Banana.append(Banana(self.center_x,self.center_y,randint(3,10)))     
             else :
-                self.Banana.append(Banana(self.center_x,self.center_y,3)) 
+                self.Banana.append(Banana(self.center_x,self.center_y,randint(2,4))) 
         if time > 7:
             if self.score > 150:
                 self.Bomb.append(Bomb(self.center_x,self.center_y,randint(5,9)))
             else:
-                self.Bomb.append(Bomb(self.center_x,self.center_y,2))
+                self.Bomb.append(Bomb(self.center_x,self.center_y,randint(1,4)))
 
     def update(self):
         if self.score < 0 :
@@ -98,20 +98,26 @@ class Monkey(arcade.Sprite):
         else :
             self.throw += 1
             self.movement()
-            if self.throw == 60:     
+            if self.throw == 30:     
                 self.create()
                 self.throw = 0
             for Banana in self.Banana:
                 if arcade.check_for_collision(Banana,self.Basket):
                     self.Banana.remove(Banana)
-                    self.score += randint(10,20)
+                    if self.score > 100:
+                        self.score += randint(5,10)
+                    else :
+                        self.score += randint(10,20)
                 if Banana.center_y < 0:
                     self.Banana.remove(Banana)
                 Banana.update()
             for Bomb in self.Bomb:
                 if arcade.check_for_collision(Bomb,self.Basket):
                     self.Bomb.remove(Bomb)
-                    self.score -= randint(15,25)
+                    if self.score > 100 :
+                        self.score -= randint(44,111)
+                    else :
+                        self.score -= randint(15,25)
                 if Bomb.center_y < 0:
                     self.Bomb.remove(Bomb)
                 Bomb.update()
